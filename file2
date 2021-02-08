@@ -1,2 +1,6 @@
 my second file
+<<<<<<< HEAD
 other branch commit
+=======
+right other branch commit 2.0
+>>>>>>> right_other_branch
