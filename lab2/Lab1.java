@@ -2,6 +2,7 @@ public class Lab1 {
     
     private static Point3d[] points = new Point3d[3];
     public static void main(String[] args){
+        Point3d testPoint = new Point3d(1, 1, 1);
         for (int i=0; i < args.length; i+=3){
             double x = convertStingToDouble(args[i]);
             double y = convertStingToDouble(args[i+1]);
