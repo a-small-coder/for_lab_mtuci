@@ -1,5 +1,3 @@
-package java_mtuci.lab2;
-
 public class Point3d {
     /* координата X */
     private double xCoord;
@@ -43,19 +41,20 @@ public class Point3d {
         zCoord = val;
         }
     // являются ли 2 точки одинаковыми
-    public static boolean isTwoPointsEqual(Point3d point1, Point3d point2){
-        if (point1.getX() == point2.getX() && point1.getY() == point2.getY() && point1.getZ() == point2.getZ())
+    public  boolean isTwoPointsEqual(Point3d point2){
+        if (this.getX() == point2.getX() && this.getY() == point2.getY() && this.getZ() == point2.getZ())
             return true;
         else
             return false;
     }
     // определение расстояния между точками
     public double distanceTo(Point3d point){
-        if (!isTwoPointsEqual(point, this)){
-            double sqrDifX = Math.pow(xCoord - point.getX(), 2.0);
-            double sqrDifY = Math.pow(yCoord - point.getY(), 2.0);
-            double sqrDifZ = Math.pow(zCoord - point.getZ(), 2.0);
+        if (!this.isTwoPointsEqual(point)){
+            double sqrDifX = Math.pow(this.getX() - point.getX(), 2.0);
+            double sqrDifY = Math.pow(this.getY() - point.getY(), 2.0);
+            double sqrDifZ = Math.pow(this.getZ() - point.getZ(), 2.0);
             double distance = Math.sqrt(sqrDifX + sqrDifY + sqrDifZ);
+            distance = Math.round(distance*100)/100D;
             return distance;
         }
         else
