@@ -11,10 +11,10 @@ public class Palindroms {
             System.out.println(s + " is not a palindrome");
        } 
     }
-    public static String reverseString(String Strings){
+    public static String reverseString(String s){
         String rev_s = "";
-        for (int i=Strings.length(); i>=0 ; i--){
-            rev_s += Strings.charAt(i);
+        for (int i=s.length()-1; i>=0 ; i--){
+            rev_s += s.charAt(i);
         }
         return rev_s;
     }
