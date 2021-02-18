@@ -39,7 +39,7 @@ public class Location
     @Override
     public int hashCode(){
         final int prime = 37;
-        int result= 15;
+        int result= 17;
 
         result = prime * result + (int)xCoord;
         result = prime * result + (int)yCoord;

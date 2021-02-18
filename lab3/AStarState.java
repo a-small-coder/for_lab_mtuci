@@ -43,7 +43,7 @@ public class AStarState
         if (numOpenWaypoints() == 0)
             return null;
         else{
-            float min_cost = 1000000.0f;
+            float min_cost = Float.MAX_VALUE;
             Location loc = new Location();
             for(Waypoint point : openWaypoints.values()) {
                 if (point.getTotalCost() < min_cost){
@@ -67,19 +67,18 @@ public class AStarState
     public boolean addOpenWaypoint(Waypoint newWP)
     {
         Location loc = newWP.getLocation();
-        if (openWaypoints.containsValue(newWP)){
-            if (openWaypoints.get(loc).getPreviousCost() > newWP.getPreviousCost()){
-                openWaypoints.remove(loc);
+        if (openWaypoints.containsKey(loc)){
+            Waypoint current_waypoint = openWaypoints.get(loc);
+            if (newWP.getPreviousCost() < current_waypoint.getPreviousCost())
+            {
                 openWaypoints.put(loc, newWP);
                 return true;
             }
-            else
-                return false;
+            return false;
         }
-        else{
-            openWaypoints.put(loc, newWP);
-            return true;
-        }
+        
+        openWaypoints.put(loc, newWP);
+        return true;
         
     }
 
