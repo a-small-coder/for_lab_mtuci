@@ -1,4 +1,3 @@
-package java_mtuci.lab1;
 public class Primes {
     public static void main(String[] args) {
         for (int i=2; i <= 100; i++){

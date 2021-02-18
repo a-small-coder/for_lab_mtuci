@@ -45,4 +45,4 @@ public class Lab1 {
         
     }
     
-}//java Lab1.java 0 0 1 0 1 0 1 0 0
+}//java Lab1.java 0 0 0 0 1 0 1 0 0
