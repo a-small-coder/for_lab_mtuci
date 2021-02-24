@@ -1,9 +1,4 @@
 public class Point3d extends Point2d {
-    /* координата X */
-    private double xCoord;
-    /* координата Y */
-    private double yCoord;
-    /* координата z */
     private double zCoord;
     /** Конструктор инициализации **/
     public Point3d ( double x, double y, double z) {
