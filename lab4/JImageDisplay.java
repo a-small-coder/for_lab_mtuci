@@ -4,6 +4,10 @@ import java.awt.*;
 class JImageDisplay extends JComponent{
     private BufferedImage myImage;
 
+    public BufferedImage getImage() {
+        return myImage;
+    }
+
     public JImageDisplay (int height, int width){
         myImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Dimension newDimension = new Dimension(width, height);
