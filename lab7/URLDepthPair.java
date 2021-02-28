@@ -22,4 +22,26 @@ public class URLDepthPair {
         String str = Integer.toString(parseDeep) + ": " + url;
         return str;
     }
+
+    public String getDocPath() {
+        try {
+            URL link = new URL(url);
+            return link.getPath();
+        }
+        catch (MalformedURLException e) {
+            System.err.println("MalformedURLException: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public String getWebHost() {
+        try {
+            URL link = new URL(url);
+            return link.getHost();
+        }
+        catch (MalformedURLException e) {
+            System.err.println("MalformedURLException: " + e.getMessage());
+            return null;
+        }
+    }
 }
