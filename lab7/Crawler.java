@@ -14,7 +14,7 @@ public class Crawler {
 
         if (args.length > -1) {
             String firstUrl = "https://www.nytimes.com";
-            int maxDepth = 3;
+            int maxDepth = 2;
             try {
                 // maxDepth = Integer.parseInt(args[1]);
 
@@ -35,6 +35,9 @@ public class Crawler {
             URLDepthPair urlDepthPair = new URLDepthPair(firstUrl, 0);
             remainingSites.add(urlDepthPair);
             urls.add(firstUrl);
+
+            Date currentDate = new Date();
+            long startTime = currentDate.getTime() / 1000;
             while (remainingSites.size() != 0) {
                 URLDepthPair currentPair = remainingSites.pop();
                 remainingSites.remove(currentPair);
@@ -47,12 +50,9 @@ public class Crawler {
 
                 indexingSites.add(currentPair);
                 writeMessage("now, the " + currentPair.toString() + " was indexed It's number is: "
-                        + indexingSites.indexOf(currentPair));
-                // String link = currentPair.getUrl();
-                // writeMessage(link.substring(link.length()-4, link.length()));
-                if (indexingSites.indexOf(currentPair) == 102){
-                    int a = 1;
-                }
+                        + indexingSites.indexOf(currentPair) + "/" 
+                        + Integer.toString(indexingSites.size() + remainingSites.size()));
+
                 LinkedList<URLDepthPair> newURLDepthPairs = research(currentPair, urls);
                 if (!(newURLDepthPairs == null)) {
                     for (int i = 0; i < newURLDepthPairs.size(); i++) {
@@ -67,6 +67,10 @@ public class Crawler {
                 writeMessage(indexingSites.get(i).getUrl());
             }
             writeMessage("All indexed ursl: " + Integer.toString(indexingSites.size()));
+            Date otherDate = new Date();
+            long endTime = otherDate.getTime() / 1000;
+            String timer = Long.toString(endTime - startTime);
+            System.out.println("Work time = " + timer + " seconds");
 
         } else {
             writeMessage("usage: java Crawler <URL> <depth>");
@@ -81,38 +85,12 @@ public class Crawler {
     public static LinkedList<URLDepthPair> research(URLDepthPair currentPair, LinkedList<String> urls) {
         LinkedList<URLDepthPair> newURLDepthPairs = new LinkedList<URLDepthPair>();
         URLConnection connection;
-        // Socket socket;
         try {
             connection = new URL(currentPair.getUrl()).openConnection();
-            // socket = new Socket();
-            // socket.connect(new InetSocketAddress(currentPair.getWebHost(), 80), 6000);
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
             return newURLDepthPairs;
         }
-        //OutputStream outStream;
-        
-        // Try to getOutputStream from the socket. 
-        // try {
-        //     outStream = socket.getOutputStream();
-        // }
-        // // Catch IOException and return blank list.
-        // catch (IOException e) {
-        //     System.err.println("IOException: " + e.getMessage());
-        //     return newURLDepthPairs;
-        // }
-        
-        // Initializes a PrintWriter. True means PrintWriter will flush after
-        // every output.
-        // PrintWriter myWriter = new PrintWriter(outStream, true);
-
-        // String docPath = currentPair.getDocPath();
-        // String webHost = currentPair.getWebHost();
-        // // Send request to server.  
-        // myWriter.println("GET " + docPath + " HTTP/1.1");
-        // myWriter.println("Host: " + webHost);
-        // myWriter.println("Connection: close");
-        // myWriter.println();
         Scanner scanner;
         try {
             scanner = new Scanner(connection.getInputStream());
@@ -152,13 +130,6 @@ public class Crawler {
                 if (isBadLink){
                     continue;
                 }
-                // try {
-                // line.replaceFirst(newLink, "");
-                // }
-                // catch (Exception e){
-                //     System.out.println("IOException: " + e.getMessage());
-                //     continue;
-                // }
                 if (urls.contains(newLink)){
                     continue;
                 }
