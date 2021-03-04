@@ -1,6 +1,7 @@
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -111,5 +112,44 @@ public class ThirdBlock {
             }
         }
         return s+="-inator " + Integer.toString(s.length()) + "000"; 
+    }
+
+    public boolean doesBrickFit(int a, int b, int c, int w, int h){
+        int[] arr = {a, b, c};
+        int[] arr2 = {w, h};
+        Arrays.sort(arr);
+        Arrays.sort(arr2);
+        if (arr[0] <= arr2[0] && arr[1] <= arr2[1]){
+            return true;
+        }
+        else {
+            return false;
+        } 
+            
+    }
+
+    public double totalDistance(double fuel, double exp, int pas, boolean flag){
+        if (flag)
+            return fuel / ((exp*(100 + pas*5/100) + 1) * 0.1);
+        else 
+            return fuel / (exp*(100 + pas*5/100));
+        
+    }
+
+    public double mean(int[] arr){
+        return Arrays.stream(arr).sum() / (double)arr.length;
+    }
+
+    public boolean parityAnalis(int a){
+        int sumNumbers;
+        int b = a;
+        while (b > 0){
+            sumNumbers += b % 10;
+            b /= 10;
+        }
+        if (b % 2 == sumNumbers % 2)
+            return true;
+        else
+            return false;
     }
 }
