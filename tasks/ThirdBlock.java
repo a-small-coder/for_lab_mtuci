@@ -77,7 +77,7 @@ public class ThirdBlock {
         }
         return ans;
     }
-
+    
     public int warOfNumbers(int[] arr){
         int chetSum = 0;
         int nechetSum = 0;
