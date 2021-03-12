@@ -1,7 +1,6 @@
 package java_mtuci.tasks;
 import java.util.*;
 
-
 public class FourthBlock {
     
     public String sevenBoom(int[] arr){
@@ -116,18 +115,19 @@ public class FourthBlock {
         return ans;
     }
 
-    // public int memeSum(int a, int b) throws NumberFormatException {
-    //     int maxNum = Math.max(a, b);
-    //     int minNum = Math.min(a,b);
-    //     String sum = "";
-    //     while (maxNum > 0){
-    //         int sumInt = maxNum % 10 + minNum % 10;
-    //         sum = Integer.toString(sumInt) + sum;
-    //         maxNum /= 10;
-    //         minNum /= 10;
-    //     }
-    //     return (int) sum;
-    // }
+    public int memeSum(int a, int b) throws NumberFormatException {
+        int maxNum = Math.max(a, b);
+        int minNum = Math.min(a,b);
+        String sum = "";
+        while (maxNum > 0){
+            int sumInt = maxNum % 10 + minNum % 10;
+            sum = Integer.toString(sumInt) + sum;
+            maxNum /= 10;
+            minNum /= 10;
+        }
+        int summa = Integer.parseInt(sum);
+        return summa;
+    }
 
     public String unrepeated(String str){
         int[] chars = new int[108];
