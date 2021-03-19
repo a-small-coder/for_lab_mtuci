@@ -1,5 +1,11 @@
 package java_mtuci.tasks;
 
+import java.text.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class FifthBlock {
     
     public boolean sameLetterPattern(String s1, String s2){
@@ -195,5 +201,151 @@ public class FifthBlock {
             maxCount = count;
         }
         return maxCount;
+    }
+
+    public static String takeDownAverage(String arr[]){
+        double sum = 0.0;
+        int count = 0;
+        double downRate = 0.05;
+        for (int i = 0; i< arr.length; i++){
+            double rate = Double.parseDouble(arr[i].substring(0, arr[i].length() - 1))  / 100.0; // "x%" to (x / 100)
+            sum += rate;
+            count++;
+        }
+        double x = (sum / count - downRate) * (count + 1) - sum;
+        x *= 100;
+        String ans = Integer.toString((int) x) + "%";
+        return ans;
+    }
+
+    public static String rearrange(String wrongStr){
+        String[] wrongStrSplited = wrongStr.split(" ");
+        String[] resultStrArr = new String[wrongStrSplited.length];
+        for (String word: wrongStrSplited){
+            if (word.equals("")){
+                continue;
+            }
+            Pattern pattern = Pattern.compile("\\d+");
+            Matcher matcher = pattern.matcher(word);
+            String numStr = "";
+            while (matcher.find()) {
+                int start=matcher.start();
+                int end=matcher.end();
+                numStr += (word.substring(start, end));
+            }
+            int position = Integer.parseInt(numStr) ;
+            word = word.replaceAll(numStr, "");
+            if (position != resultStrArr.length){
+                word += " ";
+            }
+            resultStrArr[position - 1] = word;
+            
+        }
+        String resultStr = "";
+        for (String word: resultStrArr){
+            resultStr += word;
+        }
+        return resultStr;
+    }
+
+    public static int maxPossible(int firstNum, int secondNum){
+        String firstNumStr = Integer.toString(firstNum);
+        int[] firstNumbers = new int[firstNumStr.length()];
+        for (int i=0; i <firstNumStr.length(); i++){
+            firstNumbers[i] = Integer.parseInt(firstNumStr.substring(i, i+1));
+        }
+
+        String secondNumStr = Integer.toString(secondNum);
+        int[] secondNumbers = new int[secondNumStr.length()];
+        for (int i=0; i <secondNumStr.length(); i++){
+            secondNumbers[i] = Integer.parseInt(secondNumStr.substring(i, i+1));
+        }
+        Arrays.sort(secondNumbers);
+        String res = "";
+        int i = 0;
+        int indexOfMaxN = secondNumbers.length - 1;
+        while (i < firstNumbers.length){
+            if (firstNumbers[i] < secondNumbers[indexOfMaxN]){
+                res += Integer.toString(secondNumbers[indexOfMaxN]);
+                secondNumbers[indexOfMaxN] = 0;
+                Arrays.sort(secondNumbers);
+            }              
+            else
+            res += Integer.toString(firstNumbers[i]);
+            i++;
+        }
+        return Integer.parseInt(res);
+    }
+
+    public static String timeDifference(String cityA, String cityATime, String cityB){
+        Map<String, String> cities = new HashMap<String, String>();
+        cities.put("Los Angeles", "- 08:00");
+        cities.put("New York", "- 05:00");
+        cities.put("Caracas", "- 04:30");
+        cities.put("Buenos Aires", "- 03:00");
+        cities.put("London", "+ 00:00");
+        cities.put("Rome", "+ 01:00");
+        cities.put("Moscow", "+ 03:00");
+        cities.put("Tehran", "+ 03:30");
+        cities.put("New Delhi", "+ 05:30");
+        cities.put("Beijing", "+ 08:00");
+        cities.put("Canberra", "+ 10:00");
+        
+        int modA = 1;
+        int modB = 1;
+        if (cities.get(cityA).substring(0, 1).equals("-"))
+            modA = -1;
+        if (cities.get(cityB).substring(0, 1).equals("-"))
+            modB = -1;
+        int timeAHours = modA * Integer.parseInt(cities.get(cityA).substring(2,4));
+        int timeAMins = modA * Integer.parseInt(cities.get(cityA).substring(5,7));
+        int timeBHours = modB * Integer.parseInt(cities.get(cityB).substring(2,4));
+        int timeBMins = modB * Integer.parseInt(cities.get(cityB).substring(5,7));
+
+        SimpleDateFormat formatDateIn = new SimpleDateFormat("MMMM d, yyyy HH:mm", Locale.ENGLISH);
+        Date date;
+        try {
+            date = formatDateIn.parse(cityATime);
+        }
+        catch (ParseException e) {
+            return null;
+        }
+
+        GregorianCalendar timeB = new GregorianCalendar();
+        timeB.setTime(date);
+        int diffHours = timeBHours - timeAHours;
+        int diffmins = timeBMins - timeAMins;
+        timeB.add(Calendar.HOUR, diffHours);
+        timeB.add(Calendar.MINUTE, diffmins);
+        SimpleDateFormat formatDateOut = new SimpleDateFormat("yyyy-M-d HH:mm");
+        String ans = formatDateOut.format(timeB.getTime());
+        return ans;
+    }
+
+    public static boolean isNew(int num){
+        String numStr = Integer.toString(num);
+        int[] numbers = new int[numStr.length()];
+        for (int i=0; i <numStr.length(); i++){
+            numbers[i] = Integer.parseInt(numStr.substring(i, i+1));
+        }
+        boolean isNew = true;
+        for (int j = 0; j< numbers.length; j++){
+            if (numbers[j] == 0){
+                continue;
+            }
+            int power = (int)Math.pow(10, numbers.length - 1);
+            int newNum = numbers[j] * power;
+            for (int k=0; k < numbers.length; k++){
+                if (numbers[j] != numbers[k]){
+                    power /= 10;
+                    newNum += numbers[k] * power;
+                }
+            }
+            if (newNum < num){
+                isNew = false;
+                break;
+            }
+        }
+        return isNew;
     }
 }

@@ -96,7 +96,7 @@ public class ThirdBlock {
         for (int i=0; i < s.length(); i++){
             String substr = s.substring(i, i);
             if (substr.toLowerCase().equals(substr)) {
-                newS += substr.toUpperCase() 
+                newS += substr.toUpperCase(); 
             }
             else {
              newS += substr;
@@ -147,7 +147,7 @@ public class ThirdBlock {
             sumNumbers += b % 10;
             b /= 10;
         }
-        if (b % 2 == sumNumbers % 2)
+        if (a % 2 == sumNumbers % 2)
             return true;
         else
             return false;
