@@ -1,4 +1,3 @@
-package java_mtuci.tasks;
 
 import java.util.Arrays;
 import java.util.Optional;
