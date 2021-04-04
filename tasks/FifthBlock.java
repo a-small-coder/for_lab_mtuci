@@ -7,8 +7,68 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FifthBlock {
+
+    public static void main(String[] args){
+        System.out.println(sameLetterPattern("ABAB", "CDCD"));
+        System.out.println(sameLetterPattern("ABCBA", "BCDCB"));
+        System.out.println(sameLetterPattern("FFGG", "CDCD"));
+        System.out.println(sameLetterPattern("FFFF", "ABCD"));
+
+        System.out.println(spiderVsFly("H3", "E2"));
+        System.out.println(spiderVsFly("A4", "B2"));
+        System.out.println(spiderVsFly("A4", "C2"));
+
+        System.out.println(digitsCount(4666));
+        System.out.println(digitsCount(544));
+        System.out.println(digitsCount(121317));
+        System.out.println(digitsCount(0));
+        System.out.println(digitsCount(12345));
+        System.out.println(digitsCount(1289396387328L));
+
+        String[] a1 = {"cat", "create", "sat"};
+        String[] a2 = {"trance", "recant"};
+        String[] a3 = {"dote", "dotes", "toes", "set", "dot", "dots", "sted"};
+        System.out.println(totalPoints(a1,"caster"));
+        System.out.println(totalPoints(a2, "recant"));
+        System.out.println(totalPoints(a3, "tossed"));
+
+        int[] q1 = {1, 2, 3, 5, 6, 7, 8, 9};
+        int[] q2 = {1, 2, 3, 10, 11, 15};
+        int[] q3 = {5, 4, 2, 1};
+        int[] q4 = {3, 5, 7, 10, 15};
+        System.out.println(longestRun(q1));
+        System.out.println(longestRun(q2));
+        System.out.println(longestRun(q3));
+        System.out.println(longestRun(q4));
+
+        String[] s1 = {"95%", "83%", "90%", "87%", "88%", "93%"};
+        String[] s2 = {"10%"};
+        String[] s3 = {"53%", "79%"};
+        System.out.println(takeDownAverage(s1));
+        System.out.println(takeDownAverage(s2));
+        System.out.println(takeDownAverage(s3));
+
+        System.out.println(rearrange("Tesh3 th5e 1I lov2e way6 she7 j4ust i8s."));
+        System.out.println(rearrange("the4 t3o man5 Happ1iest of6 no7 birt2hday steel8!"));
+        System.out.println(rearrange("is2 Thi1s T4est 3a"));
+        System.out.println(rearrange("4of Fo1r pe6ople g3ood th5e the2"));
+        System.out.println(rearrange(""));
+
+        System.out.println(maxPossible(523, 76));
+        System.out.println(maxPossible(9132, 5564));
+        System.out.println(maxPossible(8732, 91255));
+
+        System.out.println(timeDifference("Los Angeles", "April 1, 2011 23:23", "Canberra"));
+        System.out.println(timeDifference("London", "July 31, 1983 23:01", "Rome"));
+        System.out.println(timeDifference("New York", "December 31, 1970 13:40", "Beijing"));
+
+        System.out.println(isNew(3));
+        System.out.println(isNew(30));
+        System.out.println(isNew(321));
+        System.out.println(isNew(123));
+    }
     
-    public boolean sameLetterPattern(String s1, String s2){
+    public static boolean sameLetterPattern(String s1, String s2){
         if (s1.length() != s2.length()){
             return false;
         }
@@ -32,6 +92,10 @@ public class FifthBlock {
                     patternS1+= Integer.toString(count1) + ".";
                     s1.replaceAll(c1, Integer.toString(count1));
                 }
+                else{
+                    int index = allChar1.indexOf(c1) + 1;
+                    patternS1+= Integer.toString(index) + ".";
+                }
             }
 
             String c2 = Character.toString(s2.charAt(i));
@@ -44,6 +108,10 @@ public class FifthBlock {
                     allChar2 += c2;
                     patternS2+= Integer.toString(count2) + ".";
                     s2.replaceAll(c2, Integer.toString(count2));
+                }
+                else{
+                    int index = allChar2.indexOf(c2) + 1;
+                    patternS2+= Integer.toString(index) + ".";
                 }
             }
         }
@@ -165,7 +233,7 @@ public class FifthBlock {
             for (int i=0; i < word.length(); i++){
                 String chr = Character.toString(word.charAt(i));
                 if (wordForTest.contains(chr)){
-                    wordForTest.replace(chr, "");
+                    wordForTest = wordForTest.replace(chr, "");
                 } 
                 else{
                     isRightWord = false;
