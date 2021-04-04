@@ -1,9 +1,53 @@
-package java_mtuci.tasks;
 import java.util.*;
 
 public class FourthBlock {
+
+    public static void main(String[] args){
+        int[] a1 = {1, 2, 3, 4, 5, 6, 7};
+        int[] a2 = {8, 6, 33, 100};
+        int[] a3 = {2, 55, 60, 97, 86};
+        int[] a4 = {1, 2, 3, 4, 5, 6, 7};
+        System.out.println(sevenBoom(a1));
+        System.out.println(sevenBoom(a2));
+        System.out.println(sevenBoom(a3));
+        
+        System.out.println(cons());
+        System.out.println(cons());
+        System.out.println(cons());
+        System.out.println(cons());
+
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+
+        System.out.println(commonLastVovel("commonLastVovel"));
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+        
+        System.out.println(commonLastVovel("commonLastVovel"));
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+
+        System.out.println(commonLastVovel("commonLastVovel"));
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+
+        System.out.println(commonLastVovel("commonLastVovel"));
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+
+        System.out.println(commonLastVovel("commonLastVovel"));
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+        System.out.println(commonLastVovel());
+    }
     
-    public String sevenBoom(int[] arr){
+    public static String sevenBoom(int[] arr){
         for (int i=0; i < arr.length; i++){
             if (Integer.toString(arr[i]).contains("7"))
                 return "Boom!";
@@ -11,7 +55,7 @@ public class FourthBlock {
         return "there is no 7 in the array";
     }
 
-    public boolean cons(int[] arr){
+    public static boolean cons(int[] arr){
         Arrays.sort(arr);
         for (int i=0; i<arr.length; i++){
             if (i+1 != arr[i])
@@ -20,7 +64,7 @@ public class FourthBlock {
         return true;
     }
 
-    public String unmix(String str){
+    public static String unmix(String str){
         int len = str.length() - (str.length() % 2);
         String newStr = "";
         for (int i=0; i <len; i+=2){
@@ -29,7 +73,7 @@ public class FourthBlock {
         return newStr;
     }
 
-    public String noYelling(String str){
+    public static String noYelling(String str){
         int cutingLength = 0;
         for (int i=str.length()-1; i>=0 ; i--){
             if (str.charAt(i) == '!' || str.charAt(i) == '?')
@@ -44,7 +88,7 @@ public class FourthBlock {
         
     }
 
-    public String xPronounce(String str){
+    public static String xPronounce(String str){
         String newString ="";
         String sep = "x";
         int lastI = 0;
@@ -70,7 +114,7 @@ public class FourthBlock {
         return newString;
     }
 
-    public int largestGap(int[] arr){
+    public static int largestGap(int[] arr){
         Arrays.sort(arr);
         int del = 0;
         int newDel;
@@ -82,7 +126,7 @@ public class FourthBlock {
         return del;
     }
 
-    public String commonLastVovel(String str){
+    public static String commonLastVovel(String str){
         Map<String, Integer> vovelsMap = new HashMap<String, Integer>();
         String vovels = "aeiouy";
         str.toLowerCase();
@@ -115,7 +159,7 @@ public class FourthBlock {
         return ans;
     }
 
-    public int memeSum(int a, int b) throws NumberFormatException {
+    public static int memeSum(int a, int b) throws NumberFormatException {
         int maxNum = Math.max(a, b);
         int minNum = Math.min(a,b);
         String sum = "";
@@ -129,7 +173,7 @@ public class FourthBlock {
         return summa;
     }
 
-    public String unrepeated(String str){
+    public static String unrepeated(String str){
         int[] chars = new int[108];
         for (int i=0; i < str.length(); i++){
             char c = str.charAt(i);

@@ -3,14 +3,14 @@ public class ThirdBlock {
     public static void main(String[] args){
         
         Object[][] l = {{"Nice", 942208},{"Abu Dhabi", 1482816},{"Naples", 2186853},{"Vatican City", 572}};
-        System.out.println(millionsRouting(l));
+        System.out.println(Arrays.deepToString(millionsRouting(l)));
         Object[][] l1 = {{"Manila", 13923452},{"Kuala Lumpur", 7996830},{"Jakarta", 10770487}};
-        System.out.println(millionsRouting(l1));
+        System.out.println(Arrays.deepToString(millionsRouting(l1)));
 
-        System.out.println(otherSides(1));
-        System.out.println(otherSides(12));
-        System.out.println(otherSides(2));
-        System.out.println(otherSides(3));
+        System.out.println(Arrays.deepToString(otherSides(1)));
+        System.out.println(Arrays.deepToString(otherSides(12)));
+        System.out.println(Arrays.deepToString(otherSides(2)));
+        System.out.println(Arrays.deepToString(otherSides(3)));
 
         System.out.println(rps("rock", "paper"));
         System.out.println(rps("paper", "rock"));
@@ -58,11 +58,11 @@ public class ThirdBlock {
         for (int i=0; i < list.length; i++){
             list[i][1] = ((int)list[i][1] + 500000) / 1000000 * 1000000;        
         }
-        return Arrays.deepToString(list);
+        return list;
     }
 
     public static Double[] otherSides(int a){
-        Double[] sides = new Double[] {a*2.0, a*Math.sqrt(3)};
+        Double[] sides = new Double[] {a*2.0, (double)a*Math.round(Math.sqrt(3)*100)/100};
         return sides;
     }
 
@@ -132,12 +132,14 @@ public class ThirdBlock {
     public static String reverseCase(String s){
         String newS = "";
         for (int i=0; i < s.length(); i++){
-            String substr = s.substring(i, i);
-            if (substr.toLowerCase().equals(substr)) {
-                newS += substr.toUpperCase(); 
+            String substr = s.substring(i, i+1);
+            char substrUp = s.charAt(i);
+            char substrDown = s.toUpperCase().charAt(i);
+            if (substrUp == substrDown) {
+                newS += substr.toLowerCase(); 
             }
             else {
-             newS += substr;
+             newS += substr.toUpperCase();
             }
         }
         return newS;
@@ -166,16 +168,13 @@ public class ThirdBlock {
             
     }
 
-    public static double totalDistance(double fuel, double exp, int pas, boolean flag){
-        if (flag)
-            return fuel / ((exp*(100 + pas*5/100) + 1) * 0.1);
-        else 
-            return fuel / (exp*(100 + pas*5/100));
+    public static double totalDistance(double fuel, double expense, int pas, boolean flag){
+        return (int)(fuel/(expense*(1+pas*0.05)*(1+0.1*(flag?1:0)))*10000)/100.0;
         
     }
 
     public static double mean(int[] arr){
-        return Arrays.stream(arr).sum() / (double)arr.length;
+        return Math.round(Arrays.stream(arr).sum() / (double)arr.length *100) / 100.0;
     }
 
     public static boolean parityAnalis(int a){
@@ -185,9 +184,6 @@ public class ThirdBlock {
             sumNumbers += b % 10;
             b /= 10;
         }
-        if (a % 2 == sumNumbers % 2)
-            return true;
-        else
-            return false;
+        return (a % 2 == sumNumbers % 2);
     }
 }
