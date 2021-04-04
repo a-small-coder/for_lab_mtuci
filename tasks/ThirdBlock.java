@@ -54,6 +54,7 @@ public class ThirdBlock {
 
 
     }
+    
     public static Object[][] millionsRouting(Object[][] list){
         for (int i=0; i < list.length; i++){
             list[i][1] = ((int)list[i][1] + 500000) / 1000000 * 1000000;        

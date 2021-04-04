@@ -1,4 +1,3 @@
-package java_mtuci.tasks;
 
 import java.text.*;
 import java.text.SimpleDateFormat;
@@ -102,4 +101,6 @@ public class SixthBlox {
         }
         return ans;
     }
+
+    public static 
 }
