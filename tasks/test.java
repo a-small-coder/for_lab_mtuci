@@ -77,7 +77,8 @@ public class test {
             keyStr += keyStrArr[i];
         }
         for (int i=0; i < key.length(); i++){
-            keyArr[i] +=  keyStr.indexOf(key.substring(i, i+1)) ; 
+            int ind = keyStr.indexOf(key.substring(i, i+1));
+            keyArr[ind] += i; 
         }
 
         Map<Integer, String> encodeMessage = new HashMap<Integer, String>();
@@ -102,9 +103,14 @@ public class test {
             encodeMessage.put(index, letter);
         }
         String ans = "";
-        for (int i=0; i < keyArr.length; i++){
-            ans += encodeMessage.get(i);
+        steps /=  key.length();
+        for (int j=0; j < steps; j++){
+            for (int i=0; i < keyArr.length; i++){
+                String symbol = encodeMessage.get(keyArr[i]);
+                ans += symbol.substring(j, j+1);
+            }
         }
+        
         return ans;
     }
 }
