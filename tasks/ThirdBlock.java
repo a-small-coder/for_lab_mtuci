@@ -1,3 +1,4 @@
+package tasks;
 import java.util.*;
 public class ThirdBlock {
     public static void main(String[] args){

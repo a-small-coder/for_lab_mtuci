@@ -1,4 +1,4 @@
-
+package tasks;
 import java.text.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -102,5 +102,4 @@ public class SixthBlox {
         return ans;
     }
 
-    public static 
 }

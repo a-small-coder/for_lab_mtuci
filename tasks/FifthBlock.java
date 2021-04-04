@@ -1,4 +1,4 @@
-package java_mtuci.tasks;
+package tasks;
 
 import java.text.*;
 import java.text.SimpleDateFormat;
