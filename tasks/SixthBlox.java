@@ -195,7 +195,7 @@ public class SixthBlox {
             if (encodeMessage.get(index) != null)
                 encodeMessage.put(index, encodeMessage.get(index) + letter);
             else
-            encodeMessage.put(index, letter);
+                encodeMessage.put(index, letter);
         }
         String ans = "";
         steps /=  key.length();
@@ -266,11 +266,14 @@ public class SixthBlox {
         int k = 2;
 		int t = Math.max(chisl, znam);
 		while (k < t) {
-			if(chisl % k == 0 && znam % k == 0) {
+			if (chisl % k == 0 && znam % k == 0) {
 				chisl /= k;
 				znam /= k;
-			}else
-			k++;
+			}
+            else{
+                k++;
+            }
+			    
 		}
         return Integer.toString(wholePart*znam + chisl) + "/" + Integer.toString(znam);
     }

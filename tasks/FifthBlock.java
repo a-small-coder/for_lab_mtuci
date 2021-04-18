@@ -280,6 +280,8 @@ public class FifthBlock {
             sum += rate;
             count++;
         }
+        if (count == 0)
+            return null;
         double x = (sum / count - downRate) * (count + 1) - sum;
         x *= 100;
         String ans = Integer.toString((int) x) + "%";
@@ -339,7 +341,7 @@ public class FifthBlock {
                 Arrays.sort(secondNumbers);
             }              
             else
-            res += Integer.toString(firstNumbers[i]);
+                res += Integer.toString(firstNumbers[i]);
             i++;
         }
         return Integer.parseInt(res);
