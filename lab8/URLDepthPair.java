@@ -1,4 +1,4 @@
-// package java_mtuci.lab8;
+package lab8;
 import java.net.*;
 
 public class URLDepthPair {

@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-
+package lab3;
 
 /**
  * This class contains the implementation of the A* pathfinding algorithm.  The

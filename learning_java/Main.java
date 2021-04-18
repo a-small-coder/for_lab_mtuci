@@ -1,4 +1,4 @@
-package java_mtuci.learning_java;
+package learning_java;
 import java.util.Scanner;
 
 public class Main {
