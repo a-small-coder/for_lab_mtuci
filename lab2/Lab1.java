@@ -1,3 +1,4 @@
+package lab2;
 public class Lab1 {
     
     private static Point3d[] points = new Point3d[3];

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:lab4/Tricorn.java
 // package lab4;
+=======
+package lab6;
+>>>>>>> 9277bb19a73aebd120096b7672061fd85fb1b64a:lab6/Tricorn.java
 import java.awt.geom.*;
 
 public class Tricorn extends FractalGenerator{
