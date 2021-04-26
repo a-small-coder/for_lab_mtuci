@@ -5,40 +5,40 @@ public class Crawler {
     
 
     public static void main(String[] args) {
-        if (args.length == 3) {
-            String firstUrl = args[0];
-            // int maxDepth = 2;
-            // int numThreads = 10;
-            int maxDepth;
-            int numThreads;
-            try {
-                maxDepth = Integer.parseInt(args[1]);
+        if (true) {
+            String firstUrl = "https://ru.wikipedia.org/";
+            int maxDepth = 2;
+            int numThreads = 10;
+            // int maxDepth;
+            // // int numThreads;
+            // try {
+            //     maxDepth = Integer.parseInt(args[1]);
 
-            } catch (Exception e) {
-                System.out.println("usage: java Crawler <URL> <depth> <threads>");
-                return;
-            }
+            // } catch (Exception e) {
+            //     System.out.println("usage: java Crawler <URL> <depth> <threads>");
+            //     return;
+            // }
 
-            if (maxDepth <= 0 || maxDepth > 10) {
-                System.out.println("Depth must be from 1 to 10");
-                return;
-            }
+            // if (maxDepth <= 0 || maxDepth > 10) {
+            //     System.out.println("Depth must be from 1 to 10");
+            //     return;
+            // }
 
-            try {
-                numThreads = Integer.parseInt(args[1]);
+            // try {
+            //     numThreads = Integer.parseInt(args[1]);
 
-            } catch (Exception e) {
-                System.out.println("usage: java Crawler <URL> <depth> <threads>");
-                return;
-            }
+            // } catch (Exception e) {
+            //     System.out.println("usage: java Crawler <URL> <depth> <threads>");
+            //     return;
+            // }
 
-            if (numThreads <= 0 || numThreads > 100) {
-                System.out.println("Depth must be from 1 to 100");
-                return;
-            }
-            if (maxDepth < 3){
-                numThreads = 10;
-            }
+            // if (numThreads <= 0 || numThreads > 100) {
+            //     System.out.println("Depth must be from 1 to 100");
+            //     return;
+            // }
+            // if (maxDepth < 3){
+            //     numThreads = 10;
+            // }
 
             URLPool mainPool = new URLPool(maxDepth);
             LinkedList <Thread> allThreads = new LinkedList<Thread>();;

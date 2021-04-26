@@ -4,12 +4,10 @@ public class Mandelbrot extends FractalGenerator {
     public static final int MAX_ITERATIONS = 2000;
 
     public void getInitialRange (Rectangle2D.Double rectangle){
-        // rectangle.x = -2;
-        // rectangle.y = -1.5;
-        // rectangle.width = 3;
-        // rectangle.height = 3;
+        
        rectangle.setFrame(-2, -1.5, 3, 3);
     }
+
     public int numIterations(double x, double y){
         double realZ = 0.0;
         double imageZ = 0.0;

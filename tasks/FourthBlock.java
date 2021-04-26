@@ -13,7 +13,7 @@ public class FourthBlock {
         
         int[] b1 = {5, 1, 4, 3, 2}; 
         int[] b3 = {5, 1, 4, 3, 2, 8}; 
-        int[] b4 = {5, 6, 7, 8, 9, 9}; 
+        int[] b4 = {5, 6, 7, 8}; 
         System.out.println(cons(b1));
         System.out.println(cons(b3));
         System.out.println(cons(b4));
@@ -71,8 +71,8 @@ public class FourthBlock {
 
     public static boolean cons(int[] arr){
         Arrays.sort(arr);
-        for (int i=0; i<arr.length; i++){
-            if (i+1 != arr[i])
+        for (int i=1; i<arr.length; i++){
+            if (arr[i-1] - arr[i] != -1)
                 return false;
         }
         return true;
@@ -147,6 +147,15 @@ public class FourthBlock {
         String reverse_str_a = "";
         for (int i=str_a.length(); i > 0; i-=1){
             reverse_str_a += str_a.substring(i-1, i);
+        }
+        String[] arr_a = new String[reverse_str_a.length()];
+        for (int i=0; i < reverse_str_a.length(); i++){
+            arr_a[i] = reverse_str_a.substring(i, i+1);
+        }
+        Arrays.sort(arr_a);
+        reverse_str_a = "";
+        for  (int i = 0; i < arr_a.length; i++){
+            reverse_str_a += arr_a[i];
         }
         int reverse_a = Integer.parseInt(reverse_str_a);
         return (a - reverse_a) > 0 ? a - reverse_a : 0;

@@ -24,8 +24,8 @@ public class Palindroms {
     // проверка равенства строк
     public static Boolean isPalindrome(String s1, String s2){
         if (s1.equals(s2))
-        return true;
+            return true;
         else
-        return false;
+            return false;
     }
 }

@@ -96,6 +96,7 @@ public class FractalExplorer {
             FractalWorker drawRow = new FractalWorker(y);
             drawRow.execute();
         }
+        
 
         System.out.println(rowsLost);
 
@@ -132,7 +133,6 @@ public class FractalExplorer {
                 int userchoise = fileChooser.showSaveDialog(imgDisplay);
                 if (userchoise == JFileChooser.APPROVE_OPTION){
                     File dir = fileChooser.getSelectedFile();
-                    String dir_name = dir.toString();
 
                     try {
                         BufferedImage displayImage = imgDisplay.getImage();

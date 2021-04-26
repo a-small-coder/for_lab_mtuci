@@ -1,7 +1,15 @@
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.event.*;
+import javax.swing.JFileChooser.*;
+import javax.swing.filechooser.*;
+import javax.imageio.ImageIO;
+import java.awt.image.*;
+import java.io.*;
+import javax.swing.filechooser.FileFilter;
+
 
 public class FractalExplorer {
     private int windowSize;
@@ -28,12 +36,28 @@ public class FractalExplorer {
         myframe.add(imgDisplay, BorderLayout.CENTER);
         // create a reset button
         resetButton = new JButton("Reset Display");
-        myframe.add(imgDisplay, BorderLayout.CENTER);
         
         ButtonHandler resetHandler = new ButtonHandler();
         resetButton.addActionListener(resetHandler);
+
+        saveButton = new JButton("Save fractal");
         
+        ButtonHandler saveHandler = new ButtonHandler();
+        saveButton.addActionListener(saveHandler);
         
+        // create a combo-box
+        comboBox = new JComboBox();
+        FractalGenerator mandelbrot = new Mandelbrot();
+        comboBox.addItem(mandelbrot);
+        FractalGenerator tricorn = new Tricorn();
+        comboBox.addItem(tricorn);
+        FractalGenerator burningShip = new BurningShip();
+        comboBox.addItem(burningShip);
+         // bind chooser with combo-box
+         ButtonHandler fractalChooser = new ButtonHandler();
+         comboBox.addActionListener(fractalChooser);
+
+
         MouseHandler click = new MouseHandler();
         imgDisplay.addMouseListener(click);
 
@@ -41,8 +65,16 @@ public class FractalExplorer {
 
         // create top and bottom panels with buttons and combo-box
         //top panel
+        JPanel myTopPanel = new JPanel();
+        
+        JLabel myLabel = new JLabel("Fractal:");
+        myTopPanel.add(myLabel);
+        myTopPanel.add(comboBox);
+        myframe.add(myTopPanel, BorderLayout.NORTH);
         JPanel myBottomPanel = new JPanel();
         myBottomPanel.add(resetButton);
+        
+        myBottomPanel.add(saveButton);
         myframe.add(myBottomPanel, BorderLayout.SOUTH);
 
         myframe.pack ();
@@ -72,8 +104,36 @@ public class FractalExplorer {
 	}
 	class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			fracGenerate.getInitialRange(range);
-			drawFractal();
+            String command = e.getActionCommand();
+            if (command.equals("Reset Display")) {
+                fracGenerate.getInitialRange(range);
+                drawFractal();
+            }
+            else if (e.getSource() instanceof JComboBox) {
+                JComboBox mySource = (JComboBox) e.getSource();
+                fracGenerate = (FractalGenerator) mySource.getSelectedItem();
+                fracGenerate.getInitialRange(range);
+                drawFractal();
+            }
+            else if(command.equals("Save fractal")){
+                JFileChooser fileChooser = new JFileChooser();
+                FileFilter filter = new FileNameExtensionFilter("PNG Images", "png");
+                fileChooser.setFileFilter(filter);
+                fileChooser.setAcceptAllFileFilterUsed(false);
+
+                int userchoise = fileChooser.showSaveDialog(imgDisplay);
+                if (userchoise == JFileChooser.APPROVE_OPTION){
+                    File dir = fileChooser.getSelectedFile();
+
+                    try {
+                        BufferedImage displayImage = imgDisplay.getImage();
+                        ImageIO.write(displayImage, "png", dir);
+                    }
+                    catch (Exception exception) {
+                        JOptionPane.showMessageDialog(imgDisplay, exception.getMessage(), "Cannot Save Image", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
 		}	
 	}
 	class MouseHandler extends MouseAdapter{
