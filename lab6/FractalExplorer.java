@@ -1,4 +1,4 @@
-package lab6;
+// package lab6;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.geom.Rectangle2D;
@@ -97,6 +97,7 @@ public class FractalExplorer {
             FractalWorker drawRow = new FractalWorker(y);
             drawRow.execute();
         }
+        
 
         System.out.println(rowsLost);
 
@@ -133,7 +134,6 @@ public class FractalExplorer {
                 int userchoise = fileChooser.showSaveDialog(imgDisplay);
                 if (userchoise == JFileChooser.APPROVE_OPTION){
                     File dir = fileChooser.getSelectedFile();
-                    String dir_name = dir.toString();
 
                     try {
                         BufferedImage displayImage = imgDisplay.getImage();

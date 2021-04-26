@@ -1,8 +1,4 @@
-<<<<<<< HEAD:lab4/BurningShip.java
-// package lab4;
-=======
-package lab6;
->>>>>>> 9277bb19a73aebd120096b7672061fd85fb1b64a:lab6/BurningShip.java
+// package lab6;
 import java.awt.geom.*;
 
 public class BurningShip extends FractalGenerator{

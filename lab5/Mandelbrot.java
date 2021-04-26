@@ -1,3 +1,4 @@
+
 import java.awt.geom.*;
 public class Mandelbrot extends FractalGenerator {
 

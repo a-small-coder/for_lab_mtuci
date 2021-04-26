@@ -1,18 +1,10 @@
-<<<<<<< HEAD:lab4/Tricorn.java
-// package lab4;
-=======
-package lab6;
->>>>>>> 9277bb19a73aebd120096b7672061fd85fb1b64a:lab6/Tricorn.java
+// package lab6;
 import java.awt.geom.*;
 
 public class Tricorn extends FractalGenerator{
     public static final int MAX_ITERATIONS = 2000;
 
     public void getInitialRange (Rectangle2D.Double rectangle){
-        // rectangle.x = -2;
-        // rectangle.y = -1.5;
-        // rectangle.width = 3;
-        // rectangle.height = 3;
        rectangle.setFrame(-2, -2, 4, 4);
     }
     public int numIterations(double x, double y){

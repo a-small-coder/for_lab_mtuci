@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-// package lab4;
-=======
-package lab4;
->>>>>>> 9277bb19a73aebd120096b7672061fd85fb1b64a
 import javax.swing.*;
 import java.awt.image.*;
 import java.awt.*;
