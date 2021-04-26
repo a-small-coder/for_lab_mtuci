@@ -1,4 +1,3 @@
-package lab6;
 import java.awt.geom.*;
 
 public class BurningShip extends FractalGenerator{

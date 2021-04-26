@@ -1,4 +1,3 @@
-package lab8;
 import java.util.*;
 
 /** 

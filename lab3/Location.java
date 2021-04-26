@@ -1,4 +1,3 @@
-package lab3;
 /**
  * This class represents a specific location in a 2D map.  Coordinates are
  * integer values.

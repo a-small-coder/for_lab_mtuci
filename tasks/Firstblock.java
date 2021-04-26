@@ -1,4 +1,3 @@
-package tasks;
 public class Firstblock {
     public static void main(String[] args){
         System.out.println(convert(5));

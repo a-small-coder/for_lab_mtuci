@@ -1,4 +1,3 @@
-package lab8;
 import java.net.*;
 
 public class URLDepthPair {

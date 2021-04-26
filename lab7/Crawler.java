@@ -1,4 +1,3 @@
-package lab7;
 import java.util.*;
 import java.io.IOException;
 import java.net.*;

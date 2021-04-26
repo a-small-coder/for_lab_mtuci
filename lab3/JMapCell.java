@@ -1,4 +1,3 @@
-package lab3;
 import java.awt.*;
 import javax.swing.*;
 

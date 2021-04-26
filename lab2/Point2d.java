@@ -1,4 +1,3 @@
-package lab2;
 public class Point2d {
     /* координата X */
     private double xCoord;
