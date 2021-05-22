@@ -1,79 +1,98 @@
 import java.util.*;
-import java.io.IOException;
-import java.net.*;
 
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.*;
+// https://www.nytimes.com
+// https://apache.org/
+// http://htmlbook.ru/
 public class Crawler {
-    public static final String URL_PROTOCOL = "https://";
+    public static final String URL_PROTOCOL = "http://";
     public static final String URL_PREFIX = "href=\"";
     public static final String END_URL = "\"";
-    public static final String[] WRONG_URL_ENDS = {".apk", ".ogv"};
+    Date currentDate;
+    
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        if (args.length > -1) {
-            String firstUrl = "https://www.nytimes.com";
-            int maxDepth = 2;
-            try {
-                // maxDepth = Integer.parseInt(args[1]);
+        Scanner scaner = new Scanner(System.in);
+        System.out.println("Введите ссылку:");
+        String firstUrl = scaner.nextLine();
+        System.out.println("глубину поиска от 1 до 1000");
+        int maxDepth = 0;
+        try {
+            maxDepth = Integer.parseInt(scaner.nextLine());
+            scaner.close();
 
-            } catch (Exception e) {
-                writeMessage("usage: java Crawler <URL> <depth>");
-                return;
-            }
-
-            if (maxDepth <= 0) {
-                writeMessage("Depth must be > 0");
-                return;
-            }
-
-            LinkedList<URLDepthPair> indexingSites = new LinkedList<URLDepthPair>();
-            LinkedList<URLDepthPair> remainingSites = new LinkedList<URLDepthPair>();
-            LinkedList<String> urls = new LinkedList<String>();
-
-            URLDepthPair urlDepthPair = new URLDepthPair(firstUrl, 0);
-            remainingSites.add(urlDepthPair);
-            urls.add(firstUrl);
-
-            Date currentDate = new Date();
-            long startTime = currentDate.getTime() / 1000;
-            while (remainingSites.size() != 0) {
-                URLDepthPair currentPair = remainingSites.pop();
-                remainingSites.remove(currentPair);
-                if (indexingSites.contains(currentPair)) {
-                    continue;
-                }
-                if (currentPair.getParseDeep() == maxDepth) {
-                    continue;
-                }
-
-                indexingSites.add(currentPair);
-                writeMessage("now, the " + currentPair.toString() + " was indexed It's number is: "
-                        + indexingSites.indexOf(currentPair) + "/" 
-                        + Integer.toString(indexingSites.size() + remainingSites.size()));
-
-                LinkedList<URLDepthPair> newURLDepthPairs = research(currentPair, urls);
-                if (!(newURLDepthPairs == null)) {
-                    for (int i = 0; i < newURLDepthPairs.size(); i++) {
-                        URLDepthPair pair = newURLDepthPairs.get(i);
-                        if (!remainingSites.contains(pair))
-                            remainingSites.add(pair);
-                    }
-                }
-            }
-
-            for (int i = 0; i < indexingSites.size(); i++) {
-                writeMessage(indexingSites.get(i).getUrl());
-            }
-            writeMessage("All indexed ursl: " + Integer.toString(indexingSites.size()));
-            Date otherDate = new Date();
-            long endTime = otherDate.getTime() / 1000;
-            String timer = Long.toString(endTime - startTime);
-            System.out.println("Work time = " + timer + " seconds");
-
-        } else {
-            writeMessage("usage: java Crawler <URL> <depth>");
+        } catch (Exception e) {
+            scaner.close();
+            writeMessage("Невверное значение глубины поиска");
+            return;
+        }
+        if (maxDepth <= 0) {
+            writeMessage("Depth must be > 0");
+            return;
         }
 
+        LinkedList<URLDepthPair> indexingSites = new LinkedList<URLDepthPair>();
+        LinkedList<URLDepthPair> remainingSites = new LinkedList<URLDepthPair>();
+        LinkedList<String> urls = new LinkedList<String>();
+        String sUrl = URL_PROTOCOL + firstUrl;
+
+        URLDepthPair pairF = new URLDepthPair(sUrl, 0);
+        Socket socket = new Socket();
+        try{
+            socket.close();
+            socket = new Socket(firstUrl, 80);
+            socket.setSoTimeout(2000);
+            PrintWriter myWriter = new PrintWriter(socket.getOutputStream(), true);
+            myWriter.println("GET " + pairF.getUrl() + " HTTP/1.1");
+            myWriter.println("Host: " + pairF.getWebHost());
+            myWriter.println();
+        }
+        catch (Exception e){
+        }
+        Crawler c = new Crawler();
+        long startTime = c.startTimer(firstUrl);
+        URLDepthPair urlDepthPair = new URLDepthPair(firstUrl, 0);
+        urls.add(firstUrl);
+        remainingSites.add(urlDepthPair);
+        while (remainingSites.size() != 0) {
+            URLDepthPair currentPair = remainingSites.pop();
+            remainingSites.remove(currentPair);
+            if (indexingSites.contains(currentPair)) {
+                continue;
+            }
+            if (currentPair.getParseDeep() == maxDepth) {
+                continue;
+            }
+
+            indexingSites.add(currentPair);
+            writeMessage("now, the " + currentPair.toString() + " was indexed It's number is: "
+                    + indexingSites.indexOf(currentPair) + "/" 
+                    + Integer.toString(indexingSites.size() + remainingSites.size()));
+
+            LinkedList<URLDepthPair> newURLDepthPairs = research(currentPair, urls);
+            if (!(newURLDepthPairs == null)) {
+                for (int i = 0; i < newURLDepthPairs.size(); i++) {
+                    URLDepthPair pair = newURLDepthPairs.get(i);
+                    if (!remainingSites.contains(pair))
+                        remainingSites.add(pair);
+                }
+            }
+        }
+                
+        socket.close();
+        for (int i = 0; i < indexingSites.size(); i++) {
+            writeMessage(indexingSites.get(i).getUrl());
+        }
+        writeMessage("All indexed ursl: " + Integer.toString(indexingSites.size()));
+        Date otherDate = new Date();
+        long endTime = otherDate.getTime() / 1000;
+        String timer = Long.toString(endTime - startTime);
+        System.out.println("Work time = " + timer + " seconds");
+        
     }
 
     public static void writeMessage(String str) {
@@ -98,7 +117,10 @@ public class Crawler {
         }
         
             scanner.useDelimiter("\\Z");
-            String line = scanner.next();
+            String line = "";
+            if (scanner.hasNext()){
+                line = scanner.next();
+            }
             scanner.close();
             int startIndex = 0;
             int endIndex = 0;
@@ -139,4 +161,11 @@ public class Crawler {
             
         
     }
+
+    public long startTimer(String firstUrl){
+        currentDate = new Date();
+        long startTime = currentDate.getTime() / 1000;
+        return startTime;
+    }
+    public static final String[] WRONG_URL_ENDS = {".apk", ".ogv"};
 }
