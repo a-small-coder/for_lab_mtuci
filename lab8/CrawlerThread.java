@@ -3,7 +3,7 @@ import java.net.*;
 import java.util.*;
 
 public class CrawlerThread extends Thread {
-    public static final String URL_PROTOCOL = "https://";
+    public static final String URL_PROTOCOL = "http://";
     public static final String URL_PREFIX = "href=\"";
     public static final String END_URL = "\"";
     public static final String[] WRONG_URL_ENDS = {".apk", ".ogv"};
@@ -61,7 +61,10 @@ public class CrawlerThread extends Thread {
         }
         
             scanner.useDelimiter("\\Z");
-            String line = scanner.next();
+            String line = "";
+            if (scanner.hasNext()){
+                line = scanner.next();
+            }
             scanner.close();
             int startIndex = 0;
             int endIndex = 0;
