@@ -1,10 +1,10 @@
 import java.net.*;
 
-public class URLDepthPair {
+public class URLDepthPair7 {
     private String url;
     private int parseDeep;
 
-    public URLDepthPair(String str, int num){
+    public URLDepthPair7(String str, int num){
         url = str;
         parseDeep = num;
     }

@@ -89,7 +89,7 @@ public class SixthBlox {
         ans += "]";
         System.out.println(ans);
     }
-
+    // поиск непрерывной последовательности букв второй строки в первой строке
     public static String hiddenAnagram(String str, String anagram){
         String noFound = "noutfond";
         String alphavit = "qwertyuiopasdfghjklzxcvbnm";
@@ -108,15 +108,15 @@ public class SixthBlox {
                 if (alphavit.contains(anagram.substring(i, i+1)))
                     clAnagram += anagram.substring(i, i+1);
         }
-
-        for (int startPosition = 0; startPosition < clStr.length(); startPosition++){
+        // берем новый срез первой строки
+        for (int startPosition = 0; startPosition <= clStr.length() - clAnagram.length(); startPosition++){
             if (!clAnagram.contains(clStr.substring(startPosition, startPosition+1))){
                 continue;
             }
             String anagramCopy = clAnagram;
             int letterIndex = startPosition;
             String ans = "";
-
+            // проверка выбранного среза на соответсвие анаграмме
             while (letterIndex < clStr.length()){
                 String letter = clStr.substring(letterIndex, letterIndex + 1);
                 if (anagramCopy.contains(letter)){
@@ -134,7 +134,7 @@ public class SixthBlox {
         }
         return noFound;
     }
-
+    //разбиение строки на массив строк размера n
     public static String[] collect(String str, int n){
         String[] arr;
         if (str.length() < n){
@@ -152,11 +152,11 @@ public class SixthBlox {
         Arrays.sort(arr);
         return arr;
     }
-
+    // шифр Ника
     public static String nicoChipher(String message, String key){
         key = key.toLowerCase();
         int[] keyArr = new int[key.length()];
-
+        // создание ключа
         String [] keyStrArr = new String[key.length()];
         for (int i=0; i < key.length(); i++){
             keyStrArr[i] = key.substring(i, i+1);
@@ -172,7 +172,7 @@ public class SixthBlox {
             keyStr = keyStr.replaceFirst(s, " ");
             keyArr[ind] = i; 
         }
-
+        // предварительная запись строки по ключу
         Map<Integer, String> encodeMessage = new HashMap<Integer, String>();
         int steps = 0;
         if ( message.length() % key.length() == 0){
@@ -182,7 +182,7 @@ public class SixthBlox {
             steps= message.length() / key.length() + 1;
         }
         steps *= key.length();
-            
+        // шифрование строки по ключу
         for (int i=0; i <steps; i++){
             String letter = " ";
             if (i < message.length()){
@@ -194,6 +194,7 @@ public class SixthBlox {
             else
                 encodeMessage.put(index, letter);
         }
+        // извлечение зашифрованной строки
         String ans = "";
         steps /=  key.length();
         for (int j=0; j < steps; j++){
@@ -202,10 +203,9 @@ public class SixthBlox {
                 ans += symbol.substring(j, j+1);
             }
         }
-        
         return ans;
     }
-
+    // поиск двух множителей числа val
     public static int[] twoProduct(int[] arr, int val) {
 		int first=0, second=0;
 		int[] answer = new int[2];
@@ -221,7 +221,7 @@ public class SixthBlox {
 		}
 		return answer;
 	}
-
+    // проверка факториальной границы
     public static int[] isExact(int val) {
 		int[] answer = new int[0];
 		int number = isFact(val,2);
@@ -240,7 +240,9 @@ public class SixthBlox {
 		return isFact(number/k,k+1);
 	}
 
+    // перевод в обычную дробь
     public static String fractions(String number){
+        // получение целой, непериодической и периодической частей
         int dotIndex = number.indexOf(".");
         int bracketIndex = number.indexOf("(");
         int wholePart = Integer.parseInt(number.substring(0, dotIndex));
@@ -250,8 +252,9 @@ public class SixthBlox {
         if (unrepeatPart.length() > 0){
             firstBit = Integer.parseInt(unrepeatPart);
         } 
-
+        // числитель дроби
         int chisl = Integer.parseInt(unrepeatPart+repeatPart) - firstBit;
+        // знаменатель дроби
         String znam_str = "";
         for (int i=0; i < repeatPart.length(); i++){
             znam_str += "9";
@@ -260,12 +263,14 @@ public class SixthBlox {
             znam_str += "0";
         }
         int znam = Integer.parseInt(znam_str);
+        // сокращение дроби, если требуется
         int k = 2;
 		int t = Math.max(chisl, znam);
 		while (k < t) {
 			if (chisl % k == 0 && znam % k == 0) {
 				chisl /= k;
 				znam /= k;
+                t = Math.max(chisl, znam);
 			}
             else{
                 k++;
@@ -275,6 +280,7 @@ public class SixthBlox {
         return Integer.toString(wholePart*znam + chisl) + "/" + Integer.toString(znam);
     }
 
+    // разбиение строки на слова, длина которых равна первым 15 цифрам числа пи
     public static String pilish_string(String s){
         String  Pi = "314159265358979";
         String ans = "";
@@ -283,15 +289,18 @@ public class SixthBlox {
         }
         int currentIndex = 0;
         for(int i=0; i<Pi.length(); i++){
+            // остаток букв в строке
             int bitSize = Integer.parseInt(Pi.substring(i, i+1));
             int sLostLen = s.substring(currentIndex, s.length()).length();
             if (sLostLen == 0){
                 break;
             }
-            if (sLostLen < bitSize){
+            // разбиение строки
+            if (sLostLen < bitSize){  // если осталось меньше нужной длины
                 String repeat = s.substring(s.length()-1);
                 String dop = repeat;
-                ans += s.substring(currentIndex, s.length());
+                ans += s.substring(currentIndex, s.length()); 
+                // повторение последней буквы
                 for (int j=1; j < bitSize - sLostLen ; j++ ){
                     dop += repeat;
                 }
@@ -303,9 +312,13 @@ public class SixthBlox {
             }
             currentIndex += bitSize;
         }
+        if (ans.substring(ans.length() - 1) == " "){
+            ans = ans.substring(0, ans.length() - 1);
+        }
         return ans;
     }
 
+    // генерация непоследовательных строк
     public static String generateNonconsecutive(int n) {		
 		return recurse(n,false,"");
 	}
@@ -326,7 +339,9 @@ public class SixthBlox {
 		}	
 	}
 
+    // проверка строк на действительность (количество символов одинаково)
     public static String isValid(String s){
+        // запись количества повторений символов в строке
         Map<String, Integer> dictionary = new HashMap<String, Integer>();
         for (int i=0; i< s.length(); i++){
             String sym = s.substring(i, i+1);
@@ -338,18 +353,19 @@ public class SixthBlox {
                 dictionary.put(sym, 1);
             }
         }
+        //определение действительности
         int count = 0;
         int sum = 0;
         int mis = 0;
         String ans = "YES";
         for (int value: dictionary.values()){
-            if (count != 0 && Math.abs(sum / count - value) > 1 ){
+            if (count != 0 && Math.abs(sum / count - value) > 1 ){  // количество повторений одного символа отличается от среднего на 2 и более
                 ans = "NO";
                     break;
             }
             sum+= value;
             count++;
-            if ( (double) sum/ count != sum / count){
+            if ( (double) sum/ count != sum / count){ // попытка удалить один неподходящий символ
                 mis++;
                 sum -= value;
                 count--;
@@ -362,6 +378,7 @@ public class SixthBlox {
         return ans;
     }
 
+    // поиск массива пар[a, b], где a + b = 8, в массиве чисел
     public static List<int[]> sumUp(int[] arr){
         List<int[]> newA = new ArrayList<int[]>();
         for (int i=0;i<arr.length-1;i++) {

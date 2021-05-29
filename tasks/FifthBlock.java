@@ -66,73 +66,60 @@ public class FifthBlock {
         System.out.println(isNew(12002));
         System.out.println(isNew(10022));
     }
-    
+
+    // проверка схожести шаблонов строк
     public static boolean sameLetterPattern(String s1, String s2){
-        if (s1.length() != s2.length()){
-            return false;
-        }
         int count1 = 0;
-        String allChar1 ="";
         int count2 = 0;
+        String allChar1 ="";
         String allChar2 ="";
         String patternS1 = "";
         String patternS2 = "";
-        s1.toLowerCase();
-        s2.toLowerCase();
         for (int i=0; i < s1.length(); i++){
-            String c1 = Character.toString(s1.charAt(i));
-            try {
-                Integer.parseInt(c1);
+            if (!patternS1.equals(patternS2)){
+                break;
             }
-            catch (Exception e){
-                if (!allChar1.contains(c1)){
-                    count1++;
-                    allChar1 += c1;
-                    patternS1+= Integer.toString(count1) + ".";
-                    s1.replaceAll(c1, Integer.toString(count1));
-                }
-                else{
-                    int index = allChar1.indexOf(c1) + 1;
-                    patternS1+= Integer.toString(index) + ".";
-                }
+            String c1 = Character.toString(s1.charAt(i));
+            if (allChar1.contains(c1)){
+                int index = allChar1.indexOf(c1) + 1;
+                patternS1+= Integer.toString(index) + ".";
+            }
+            else{
+                count1++;
+                allChar1 += c1;
+                patternS1+= Integer.toString(count1) + ".";
+                
             }
 
             String c2 = Character.toString(s2.charAt(i));
-            try {
-                Integer.parseInt(c2);
+            if (allChar2.contains(c2)){
+                int index = allChar2.indexOf(c2) + 1;
+                patternS2+= Integer.toString(index) + ".";
             }
-            catch (Exception e){
-                if (!allChar2.contains(c2)){
-                    count2++;
-                    allChar2 += c2;
-                    patternS2+= Integer.toString(count2) + ".";
-                    s2.replaceAll(c2, Integer.toString(count2));
-                }
-                else{
-                    int index = allChar2.indexOf(c2) + 1;
-                    patternS2+= Integer.toString(index) + ".";
-                }
+            else{
+                count2++;
+                allChar2 += c2;
+                patternS2+= Integer.toString(count2) + ".";
+                
             }
         }
-        if (patternS1.equals(patternS2)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return patternS1.equals(patternS2);
     }
 
+    // паук
     public static String spiderVsFly(String startP, String endP){
+
         int L = 8;
         int sCircle = (int)startP.charAt(1) - 48;
         int eCircle = (int)endP.charAt(1) - 48;
         int startLineCode = (int)startP.charAt(0)- 64; // буквы A - H имеют коды 65-73 в колировке ASCII
         int endLineCode = (int)endP.charAt(0) - 64; // поэтому получим номер начальной и конечной линиии, отняв 64
         int distanceLines = Math.abs(startLineCode - endLineCode);
-        int d = (distanceLines + 2 * (distanceLines / (L - 1))) % (L/2);
+        int[] D = {0, 1, 2, 3, 0, 3, 2, 1}; // удаленность линий A-H друг от друга
+        int d = D[distanceLines]; 
         String pass = "";
         int mod;
-        if (d == 0){
+        if (d == 0){ // точки находятся на одной линии
             pass = startP;
             if (pass.equals("A0")){
                 startLineCode = endLineCode;
@@ -155,7 +142,7 @@ public class FifthBlock {
                 }
             }
         }
-        else if (d <=L/4){
+        else if (d <= 2){ 
             boolean isNeedSwap;
             if (startLineCode + 4 < endLineCode){
                 isNeedSwap = true;
@@ -194,26 +181,18 @@ public class FifthBlock {
                 }
             }
         }
-        else if (d >L/4){
+        else if (d > 2){
             pass += spiderVsFly(startP, "A0");
             pass += spiderVsFly("A0", endP).substring(2);
         }
         return pass;
     }
-
+    // количество цифр в числе
     public static int digitsCount(long x){
-        x /= 10;
-        int k = 0;
-        if (x == 0){
-        return k+1;
-        }
-        else {
-        k = digitsCount(x);
-        k += 1;
-        }
-        return k;
+        return x > 9 ? digitsCount(x/10) + 1: 1;
         }
 
+    // подсчет очков за угаданные слова
     public static int totalPoints(String[] words, String rightWord){
         int score = 0;
         for (String word: words){
@@ -239,38 +218,21 @@ public class FifthBlock {
 
         return score;
     }
-
+    // поиск количества последовательных чисел
     public static int longestRun(int[] arr){
         int count = 1;
         int maxCount = 0;
-        boolean isUpper;
         if (arr.length > 1){
-            if (arr[0] > arr[1]){
-                isUpper = false;
-            }
-            else{
-                isUpper = true;
-            }
-        }
-        else{
-            return 1;
-        }
-        for (int i=1; i < arr.length; i++){
-            if (arr[i-1] > arr[i] && isUpper){
-                break;
-            }
-            if (arr[i-1] < arr[i] && !isUpper){
-                break;
-            }
-
-            if (Math.abs(arr[i-1] - arr[i]) == 1){
-                count++;
-            }
-            else{
-                if (count > maxCount){
-                    maxCount = count;
+            for (int i=1; i < arr.length; i++){
+                if (Math.abs(arr[i-1] - arr[i]) == 1){
+                    count++;
                 }
-                count = 1;
+                else{
+                    if (count > maxCount){
+                        maxCount = count;
+                    }
+                    count = 1;
+                }
             }
         }
         if (count > maxCount){
@@ -278,24 +240,23 @@ public class FifthBlock {
         }
         return maxCount;
     }
-
+    // средний процент
     public static String takeDownAverage(String arr[]){
+        if (arr.length == 0)
+            return null;
         double sum = 0.0;
-        int count = 0;
         double downRate = 0.05;
         for (int i = 0; i< arr.length; i++){
             double rate = Double.parseDouble(arr[i].substring(0, arr[i].length() - 1))  / 100.0; // "x%" to (x / 100)
             sum += rate;
-            count++;
         }
-        if (count == 0)
-            return null;
-        double x = (sum / count - downRate) * (count + 1) - sum;
+        double x = (sum / arr.length - downRate) * (arr.length + 1) - sum;
         x *= 100;
         String ans = Integer.toString((int) x) + "%";
         return ans;
     }
 
+    // перестановка слов согласно цифрам в них
     public static String rearrange(String wrongStr){
         String[] wrongStrSplited = wrongStr.split(" ");
         String[] resultStrArr = new String[wrongStrSplited.length];
@@ -325,19 +286,21 @@ public class FifthBlock {
         }
         return resultStr;
     }
-
+    // масимальное число из цифр двух исходных чисел
     public static int maxPossible(int firstNum, int secondNum){
+        // чтение первого числа в массив
         String firstNumStr = Integer.toString(firstNum);
         int[] firstNumbers = new int[firstNumStr.length()];
         for (int i=0; i <firstNumStr.length(); i++){
             firstNumbers[i] = Integer.parseInt(firstNumStr.substring(i, i+1));
         }
-
+        // чтение второго числа в массив
         String secondNumStr = Integer.toString(secondNum);
         int[] secondNumbers = new int[secondNumStr.length()];
         for (int i=0; i <secondNumStr.length(); i++){
             secondNumbers[i] = Integer.parseInt(secondNumStr.substring(i, i+1));
         }
+
         Arrays.sort(secondNumbers);
         String res = "";
         int i = 0;
@@ -354,7 +317,7 @@ public class FifthBlock {
         }
         return Integer.parseInt(res);
     }
-
+    // перевод часов
     public static String timeDifference(String cityA, String cityATime, String cityB){
         Map<String, String> cities = new HashMap<String, String>();
         cities.put("Los Angeles", "- 08:00");
@@ -369,6 +332,7 @@ public class FifthBlock {
         cities.put("Beijing", "+ 08:00");
         cities.put("Canberra", "+ 10:00");
         
+        // расчет добавочного времени
         int modA = 1;
         int modB = 1;
         if (cities.get(cityA).substring(0, 1).equals("-"))
@@ -379,7 +343,9 @@ public class FifthBlock {
         int timeAMins = modA * Integer.parseInt(cities.get(cityA).substring(5,7));
         int timeBHours = modB * Integer.parseInt(cities.get(cityB).substring(2,4));
         int timeBMins = modB * Integer.parseInt(cities.get(cityB).substring(5,7));
-
+        int diffHours = timeBHours - timeAHours;
+        int diffmins = timeBMins - timeAMins;
+        // чтение даты из строки
         SimpleDateFormat formatDateIn = new SimpleDateFormat("MMMM d, yyyy HH:mm", Locale.ENGLISH);
         Date date;
         try {
@@ -391,40 +357,36 @@ public class FifthBlock {
 
         GregorianCalendar timeB = new GregorianCalendar();
         timeB.setTime(date);
-        int diffHours = timeBHours - timeAHours;
-        int diffmins = timeBMins - timeAMins;
         timeB.add(Calendar.HOUR, diffHours);
         timeB.add(Calendar.MINUTE, diffmins);
-        SimpleDateFormat formatDateOut = new SimpleDateFormat("yyyy-M-d HH:mm");
+        SimpleDateFormat formatDateOut = new SimpleDateFormat("yyyy-M-d HH:mm"); 
         String ans = formatDateOut.format(timeB.getTime());
         return ans;
     }
-
+    // является ли число наименьшим возможным для данного набора цифр
     public static boolean isNew(int num){
         String numStr = Integer.toString(num);
         int[] numbers = new int[numStr.length()];
         for (int i=0; i <numStr.length(); i++){
             numbers[i] = Integer.parseInt(numStr.substring(i, i+1));
         }
-        
-        boolean isNew = true;
-        for (int j = 0; j< numbers.length; j++){
-            if (numbers[j] == 0){
-                continue;
-            }
-            int power = (int)Math.pow(10, numbers.length - 1);
-            int newNum = numbers[j] * power;
-            for (int k=0; k < numbers.length; k++){
-                if (numbers[j] != numbers[k]){
-                    power /= 10;
-                    newNum += numbers[k] * power;
-                }
-            }
-            if (newNum < num){
-                isNew = false;
+
+        Arrays.sort(numbers);
+        // поиск индекса наименьшей цифры (> 0)
+        int indexFirstNumNotZero = 0;
+        for (int i = 0; i < numbers.length; i++){
+            if (numbers[i] > 0){
+                indexFirstNumNotZero = i;
                 break;
             }
         }
-        return isNew;
+        // собираем число из массива как: наименьшая цифра (> 0) + нули, если есть, + остальные цифры по возрастанию
+        String numberS = Integer.toString(numbers[indexFirstNumNotZero]);
+        for (int i = 0; i < numbers.length; i++){
+            if (i != indexFirstNumNotZero){
+                numberS += Integer.toString(numbers[i]);
+            }
+        }
+        return numStr.equals(numberS);
     }
 }

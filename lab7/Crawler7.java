@@ -7,7 +7,7 @@ import java.net.*;
 // https://www.nytimes.com
 // https://apache.org/
 // http://htmlbook.ru/
-public class Crawler {
+public class Crawler7 {
     public static final String URL_PROTOCOL = "http://";
     public static final String URL_PREFIX = "href=\"";
     public static final String END_URL = "\"";
@@ -35,12 +35,12 @@ public class Crawler {
             return;
         }
 
-        LinkedList<URLDepthPair> indexingSites = new LinkedList<URLDepthPair>();
-        LinkedList<URLDepthPair> remainingSites = new LinkedList<URLDepthPair>();
+        LinkedList<URLDepthPair7> indexingSites = new LinkedList<URLDepthPair7>();
+        LinkedList<URLDepthPair7> remainingSites = new LinkedList<URLDepthPair7>();
         LinkedList<String> urls = new LinkedList<String>();
         String sUrl = URL_PROTOCOL + firstUrl;
 
-        URLDepthPair pairF = new URLDepthPair(sUrl, 0);
+        URLDepthPair7 pairF = new URLDepthPair7(sUrl, 0);
         Socket socket = new Socket();
         try{
             socket.close();
@@ -53,13 +53,13 @@ public class Crawler {
         }
         catch (Exception e){
         }
-        Crawler c = new Crawler();
+        Crawler7 c = new Crawler7();
         long startTime = c.startTimer(firstUrl);
-        URLDepthPair urlDepthPair = new URLDepthPair(firstUrl, 0);
+        URLDepthPair7 urlDepthPair = new URLDepthPair7(firstUrl, 0);
         urls.add(firstUrl);
         remainingSites.add(urlDepthPair);
         while (remainingSites.size() != 0) {
-            URLDepthPair currentPair = remainingSites.pop();
+            URLDepthPair7 currentPair = remainingSites.pop();
             remainingSites.remove(currentPair);
             if (indexingSites.contains(currentPair)) {
                 continue;
@@ -73,10 +73,10 @@ public class Crawler {
                     + indexingSites.indexOf(currentPair) + "/" 
                     + Integer.toString(indexingSites.size() + remainingSites.size()));
 
-            LinkedList<URLDepthPair> newURLDepthPairs = research(currentPair, urls);
+            LinkedList<URLDepthPair7> newURLDepthPairs = research(currentPair, urls);
             if (!(newURLDepthPairs == null)) {
                 for (int i = 0; i < newURLDepthPairs.size(); i++) {
-                    URLDepthPair pair = newURLDepthPairs.get(i);
+                    URLDepthPair7 pair = newURLDepthPairs.get(i);
                     if (!remainingSites.contains(pair))
                         remainingSites.add(pair);
                 }
@@ -99,8 +99,8 @@ public class Crawler {
         System.out.println(str);
     }
 
-    public static LinkedList<URLDepthPair> research(URLDepthPair currentPair, LinkedList<String> urls) {
-        LinkedList<URLDepthPair> newURLDepthPairs = new LinkedList<URLDepthPair>();
+    public static LinkedList<URLDepthPair7> research(URLDepthPair7 currentPair, LinkedList<String> urls) {
+        LinkedList<URLDepthPair7> newURLDepthPairs = new LinkedList<URLDepthPair7>();
         URLConnection connection;
         try {
             connection = new URL(currentPair.getUrl()).openConnection();
@@ -154,7 +154,7 @@ public class Crawler {
                     continue;
                 }
                 urls.add(newLink);
-                URLDepthPair newURLDepthPair = new URLDepthPair(newLink, currentPair.getParseDeep() + 1);
+                URLDepthPair7 newURLDepthPair = new URLDepthPair7(newLink, currentPair.getParseDeep() + 1);
                 newURLDepthPairs.add(newURLDepthPair);
             }
             return newURLDepthPairs;
