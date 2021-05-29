@@ -11,7 +11,7 @@ public class Crawler {
     public static void main(String[] args) {
 
         if (args.length > -1) {
-            String firstUrl = "https://www.nytimes.com";
+            String firstUrl = "https://ru.wikipedia.org/";
             int maxDepth = 2;
             try {
                 // maxDepth = Integer.parseInt(args[1]);

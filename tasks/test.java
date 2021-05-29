@@ -4,107 +4,98 @@ import java.util.*;
 
 public class test {
     public static void main(String[] args) {
-        System.out.println(nicoChipher("mubashirhassan", "crazy"));
-        // String[] arr;
-        // arr = collect("intercontinentalisationalism", 6);
-        // Arrays.sort(arr);
-        // String ans = "";
-        // for (String word:arr){
-        //     ans += "\"" + word + "\", ";
-        // }
-        // ans = ans.substring(0, ans.length() - 2);
-        // System.out.println("[" + ans + "]");
-
-        // arr = collect("strengths", 19);
-        // Arrays.sort(arr);
-        // ans = "";
-        // for (String word:arr){
-        //     ans += "\"" + word + "\", ";
-        // }
-        // ans = ans.substring(0, ans.length() - 2);
-        // System.out.println("[" + ans + "]");
-        
-        // arr = collect("pneumonoultramicroscopicsilicovolcanoconiosis", 15);
-        // Arrays.sort(arr);
-        // ans = "";
-        // for (String word:arr){
-        //     ans += "\"" + word + "\", ";
-        // }
-        // ans = ans.substring(0, ans.length() - 2);
-        // System.out.println("[" + ans + "]");
-
-        // System.out.println("ationa, interc, ntalis, ontine");
-        // System.out.println("eng, str, ths");
-        // System.out.println("croscopicsilico, pneumonoultrami, volcanoconiosis");
-
-        
+        // System.out.println(spiderVsFly("A4", "F2"));
+        String s = "B4";
+        spiderVsFly(s, "B4");
+        spiderVsFly(s, "C4");
+        spiderVsFly(s, "D4");
+        spiderVsFly(s, "E4");
+        spiderVsFly(s, "F4");
+        spiderVsFly(s, "G4");
+        spiderVsFly(s, "H4");
+        spiderVsFly(s, "A4");
     }
 
-    // public static String[] collect(String str, int n){
-    //     String[] arr;
-    //     if (str.length() < n){
-    //         arr = new String[1];
-    //     }
-    //     else{
-    //         arr = new String[str.length() / n];
-    //         arr[0] = str.substring(0, n);
-    //         String[] otherArr = collect(str.substring(n), n);
-    //         for (int i=1; i< arr.length; i++){
-    //             if (otherArr.length > i-1)
-    //                 arr[i] = otherArr[i-1];
-    //         }
-    //     }
-    //     return arr;
-    // }
+    public static String spiderVsFly(String startP, String endP){
+        int L = 8;
+        int sCircle = (int)startP.charAt(1) - 48;
+        int eCircle = (int)endP.charAt(1) - 48;
+        int startLineCode = (int)startP.charAt(0)- 64; // буквы A - H имеют коды 65-73 в колировке ASCII
+        int endLineCode = (int)endP.charAt(0) - 64; // поэтому получим номер начальной и конечной линиии, отняв 64
+        int distanceLines = Math.abs(startLineCode - endLineCode);
+        int d = (distanceLines + 2 * (distanceLines / (L - 1))) % (L/2);
+        String pass = "";
+        int mod;
+        // if (d == 0){
+        //     pass = startP;
+        //     if (pass.equals("A0")){
+        //         startLineCode = endLineCode;
+        //     }
+        //     while (startLineCode != endLineCode || sCircle != eCircle){ 
+        //         if (startLineCode != endLineCode){
+        //             mod = -1;
+        //         }
+        //         else {
+        //             mod = 1;
+        //         }
+        //         sCircle += mod;
+        //         if (sCircle == 0){
+        //         startLineCode = 1;
+        //         }
+        //         String addPass = (char)(startLineCode+64) + Integer.toString(sCircle);
+        //         pass += "-" + addPass;
+        //         if (addPass.equals("A0")){
+        //             startLineCode = endLineCode;
+        //         }
+        //     }
+        // }
+        // else if (d <=L/4){
+        //     boolean isNeedSwap;
+        //     if (startLineCode + 4 < endLineCode){
+        //         isNeedSwap = true;
+        //         int temp = endLineCode;
+        //         endLineCode = startLineCode;
+        //         startLineCode = temp;
+        //         temp = sCircle;
+        //         sCircle = eCircle;
+        //         eCircle = temp;
+        //     }
+        //     else 
+        //         isNeedSwap = false;
 
-    public static String nicoChipher(String message, String key){
-        key = key.toLowerCase();
-        int[] keyArr = new int[key.length()];
+        //     pass = (char)(startLineCode + 64) + Integer.toString(sCircle);
+        //     while (startLineCode != endLineCode || sCircle != eCircle){ 
+        //         if (sCircle > eCircle){
+        //             sCircle--;
+        //         }
+        //         else if (sCircle == eCircle){
+        //             if (startLineCode == L){
+        //                 startLineCode = 1;
+        //             }
+        //             else{
+        //                 startLineCode++;
+        //             }
+        //         }
+        //         String addPass = (char)(startLineCode + 64) + Integer.toString(sCircle);
+        //         pass += "-" + addPass;
 
-        String [] keyStrArr = new String[key.length()];
-        for (int i=0; i < key.length(); i++){
-            keyStrArr[i] = key.substring(i, i+1);
-        }
-        Arrays.sort(keyStrArr); // amtt from matt - 1234 to 2134
-        String keyStr = "";
-        for (int i=0; i < keyStrArr.length; i++){
-            keyStr += keyStrArr[i];
-        }
-        for (int i=0; i < key.length(); i++){
-            int ind = keyStr.indexOf(key.substring(i, i+1));
-            keyArr[ind] += i; 
-        }
-
-        Map<Integer, String> encodeMessage = new HashMap<Integer, String>();
-        int steps = 0;
-        if ( message.length() % key.length() == 0){
-            steps = message.length() / key.length();
-        }
-        else{
-            steps= message.length() / key.length() + 1;
-        }
-        steps *= key.length();
-            
-        for (int i=0; i <steps; i++){
-            String letter = " ";
-            if (i < message.length()){
-                letter = message.substring(i, i+1); 
-            }
-            int index = i % keyArr.length;
-            if (encodeMessage.get(index) != null)
-                encodeMessage.put(index, encodeMessage.get(index) + letter);
-            else
-            encodeMessage.put(index, letter);
-        }
-        String ans = "";
-        steps /=  key.length();
-        for (int j=0; j < steps; j++){
-            for (int i=0; i < keyArr.length; i++){
-                String symbol = encodeMessage.get(keyArr[i]);
-                ans += symbol.substring(j, j+1);
-            }
-        }
-        
-        return ans;
+        //     }
+        //     if (isNeedSwap){
+        //         String[] passSplited = pass.split("-");
+        //         pass = passSplited[passSplited.length-1];
+        //         for (int i=passSplited.length-2; i>=0 ; i--){
+        //             pass += "-" + passSplited[i];
+        //         }
+        //     }
+        // }
+        // else if (d >L/4){
+        //     pass += spiderVsFly(startP, "A0");
+        //     pass += spiderVsFly("A0", endP).substring(2);
+        // }
+        System.out.println(d);
+        return pass;
     }
+        
+
+   
 }

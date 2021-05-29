@@ -8,7 +8,7 @@ public class Crawler {
         if (true) {
             String firstUrl = "https://ru.wikipedia.org/";
             int maxDepth = 2;
-            int numThreads = 10;
+            int numThreads = 50;
             // int maxDepth;
             // // int numThreads;
             // try {
@@ -70,6 +70,7 @@ public class Crawler {
                 }
 
             } 
+
             mainPool.writeAllIndexed();
             for(Thread thread: allThreads){
                 try{
