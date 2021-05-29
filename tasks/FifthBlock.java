@@ -105,7 +105,6 @@ public class FifthBlock {
         }
         return patternS1.equals(patternS2);
     }
-
     // паук
     public static String spiderVsFly(String startP, String endP){
 
@@ -117,6 +116,9 @@ public class FifthBlock {
         int distanceLines = Math.abs(startLineCode - endLineCode);
         int[] D = {0, 1, 2, 3, 0, 3, 2, 1}; // удаленность линий A-H друг от друга
         int d = D[distanceLines]; 
+        if (eCircle == 0 || sCircle == 0){
+            d = 0;
+        }
         String pass = "";
         int mod;
         if (d == 0){ // точки находятся на одной линии
@@ -125,7 +127,7 @@ public class FifthBlock {
                 startLineCode = endLineCode;
             }
             while (startLineCode != endLineCode || sCircle != eCircle){ 
-                if (startLineCode != endLineCode){
+                if (startLineCode != endLineCode || (startLineCode == 1 && endP.equals("A0"))){
                     mod = -1;
                 }
                 else {
@@ -144,7 +146,7 @@ public class FifthBlock {
         }
         else if (d <= 2){ 
             boolean isNeedSwap;
-            if (startLineCode + 4 < endLineCode){
+            if (startLineCode + 4 < endLineCode || startLineCode > endLineCode){
                 isNeedSwap = true;
                 int temp = endLineCode;
                 endLineCode = startLineCode;
@@ -201,7 +203,7 @@ public class FifthBlock {
             for (int i=0; i < word.length(); i++){
                 String chr = Character.toString(word.charAt(i));
                 if (wordForTest.contains(chr)){
-                    wordForTest = wordForTest.replace(chr, "");
+                    wordForTest = wordForTest.replaceFirst(chr, "");
                 } 
                 else{
                     isRightWord = false;
