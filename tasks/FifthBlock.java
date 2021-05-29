@@ -32,7 +32,7 @@ public class FifthBlock {
         System.out.println(totalPoints(a3, "tossed"));
 
         int[] q1 = {1, 2, 3, 5, 6, 7, 8, 9};
-        int[] q2 = {1, 2, 3, 10, 11, 15};
+        int[] q2 = {3, 2, 1, 2};
         int[] q3 = {5, 4, 2, 1};
         int[] q4 = {3, 5, 7, 10, 15};
         System.out.println(longestRun(q1));
@@ -63,8 +63,8 @@ public class FifthBlock {
 
         System.out.println(isNew(3));
         System.out.println(isNew(30));
-        System.out.println(isNew(321));
-        System.out.println(isNew(123));
+        System.out.println(isNew(12002));
+        System.out.println(isNew(10022));
     }
     
     public static boolean sameLetterPattern(String s1, String s2){
@@ -201,28 +201,18 @@ public class FifthBlock {
         return pass;
     }
 
-    public static int digitsCount(Object num){
-        int count = 0;
-        if (num instanceof Integer){
-            int number = (int) num;
-            do {
-                count++;
-                number /= 10;
-            } while (number > 0);
+    public static int digitsCount(long x){
+        x /= 10;
+        int k = 0;
+        if (x == 0){
+        return k+1;
         }
-        else if (num instanceof Long){
-            long number = (long) num;
-            do {
-                count++;
-                number /= 10;
-            } while (number > 0);
+        else {
+        k = digitsCount(x);
+        k += 1;
         }
-        else{
-            System.out.println("This is not a integer type");
+        return k;
         }
-        
-        return count;
-    }
 
     public static int totalPoints(String[] words, String rightWord){
         int score = 0;
@@ -253,7 +243,26 @@ public class FifthBlock {
     public static int longestRun(int[] arr){
         int count = 1;
         int maxCount = 0;
+        boolean isUpper;
+        if (arr.length > 1){
+            if (arr[0] > arr[1]){
+                isUpper = false;
+            }
+            else{
+                isUpper = true;
+            }
+        }
+        else{
+            return 1;
+        }
         for (int i=1; i < arr.length; i++){
+            if (arr[i-1] > arr[i] && isUpper){
+                break;
+            }
+            if (arr[i-1] < arr[i] && !isUpper){
+                break;
+            }
+
             if (Math.abs(arr[i-1] - arr[i]) == 1){
                 count++;
             }
@@ -397,6 +406,7 @@ public class FifthBlock {
         for (int i=0; i <numStr.length(); i++){
             numbers[i] = Integer.parseInt(numStr.substring(i, i+1));
         }
+        
         boolean isNew = true;
         for (int j = 0; j< numbers.length; j++){
             if (numbers[j] == 0){

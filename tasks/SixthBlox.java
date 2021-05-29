@@ -98,6 +98,7 @@ public class SixthBlox {
         str = str.toLowerCase();
         anagram = anagram.toLowerCase();
         int maxLen = Math.max(str.length(), anagram.length());
+        // убираем пробелы
         for (int i=0; i < maxLen; i++){
             if (str.length() > i)
                 if (alphavit.contains(str.substring(i, i+1)))
@@ -148,6 +149,7 @@ public class SixthBlox {
                     arr[i] = otherArr[i-1];
             }
         }
+        Arrays.sort(arr);
         return arr;
     }
 
