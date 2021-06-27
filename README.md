@@ -63,3 +63,7 @@ git push origin other_branch - отправка изменений на ветк
 git branch - список веток
 
 git branch -D branch_name - удаление ветки branch_name
+
+git stash - откат всех неиндексированных изменений (помещаются в отдельное хранилище)
+
+git reset --hard commit_name - откат к коммиту commit_name
