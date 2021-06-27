@@ -61,3 +61,5 @@ git pull origin other_branch - получение изменений с ветк
 git push origin other_branch - отправка изменений на ветку otherbranch
 
 git branch - список веток
+
+git branch -D branch_name - удаление ветки branch_name
